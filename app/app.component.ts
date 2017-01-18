@@ -9,10 +9,15 @@ import { Component } from '@angular/core';
       <li *ngFor="let Recipe of recipes">{{Recipe.title}}
         <ul>
           <li>{{Recipe.ingredients}}</li>
-          <li>{{Recipe.directions}}</li>
+          <li>{{Recipe.directions}}</li><button (click)="editRecipe(Recipe)">Edit directions?</button>
         </ul>
       </li>
     </ul>
+    <div class="form-group" *ngIf="selectedRecipe">
+      <label>Enter recipe directions:</label>
+      <input [(ngModel)]="selectedRecipe.directions">
+      <button (click)="finishedEditing()">Done</button>
+    </div>
   </div>
   `
 })
@@ -24,6 +29,17 @@ export class AppComponent {
     new Recipe('beer', 'gluten, fizz, barley, alcohol', 'mix it together and drink it'),
     new Recipe('cereal', 'gluten, milk, spoon', 'poor into a bowl')
   ];
+
+  selectedRecipe = null;
+
+  finishedEditing() {
+    this.selectedRecipe = null;
+  }
+
+  editRecipe(clickedRecipe) {
+    this.selectedRecipe = clickedRecipe;
+  }
+
 }
 
 export class Recipe {
