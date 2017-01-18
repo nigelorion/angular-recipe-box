@@ -1,0 +1,32 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+  <div class="container">
+    <h1>{{currentFocus}}</h1>
+    <ul>
+      <li *ngFor="let Recipe of recipes">{{Recipe.title}}
+        <ul>
+          <li>{{Recipe.ingredients}}</li>
+          <li>{{Recipe.directions}}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  `
+})
+
+export class AppComponent {
+  currentFocus: string = 'Awesome Recipes!';
+  recipes: Recipe[] = [
+    new Recipe('Pie', 'eggs, milk, etc', 'put it in the oven'),
+    new Recipe('beer', 'gluten, fizz, barley, alcohol', 'mix it together and drink it'),
+    new Recipe('cereal', 'gluten, milk, spoon', 'poor into a bowl')
+  ];
+}
+
+export class Recipe {
+  public done: boolean = false;
+  constructor(public title: string, public ingredients: string, public directions: string) { }
+}
